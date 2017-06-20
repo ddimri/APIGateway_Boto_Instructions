@@ -1,2 +1,2 @@
-# Check README file in folder
+# Check README file for each folder
 
