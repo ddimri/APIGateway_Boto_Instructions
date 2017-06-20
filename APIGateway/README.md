@@ -29,7 +29,7 @@ Create body mapping template content type --> application/json
 }
 ```
 
-Tesr the APIGateway
+Test the APIGateway
 
 ```
 	{ "commentsId": "1.0"
