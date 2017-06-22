@@ -1,23 +1,49 @@
 # Boto
 
-Make sure you ahve  python 2.7 installed  ( mac has it default)
+Make sure you ahve  python 2.7 installed  ( mac has it by default)
 
 ```
-pip install boto3 ( if pip is not installed then follow :)
+pip install boto3 - if pip is not installed then follow these commands:
 
 xcode-select --install
 sudo easy_install pip
 sudo pip install --upgrade pip
 ```
 
-Assume role
+Assume role from lets say AWS Account 123456789012 to 0987654321012
+
+Create a service account lets say "terraform" in AWS 123456789012
+Attach below policy to the service account terraform that you have created in 123456789012
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1424898647000",
+            "Effect": "Allow",
+            "Action": [
+                "sts:AssumeRole"
+            ],
+            "Resource": [
+                "arn:aws:iam::0987654321012:role/terraform-role"
+            ]
+        }
+    ]
+}
+```
+Create a role name "terraform-role" in 0987654321012
+Attach S3 Read only access policy to terraform-role
+Trust 123456789012 account
+
+Run the 
 
 ```
 import boto3
 #cteate security token service object
 sts_client = boto3.client('sts')
 assumedRoleObject = sts_client.assume_role(
-    RoleArn="arn:aws:iam::157065524616:role/awstraining-role-tbd",
+    RoleArn="arn:aws:iam::0987654321012:role/terraform-role",
     RoleSessionName="AssumeRoleSession1"
 )
 
